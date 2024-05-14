@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { ɵPLATFORM_BROWSER_ID } from '@angular/common';
 import bootstrap from '../main.server';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,6 +16,14 @@ import { UserRegistrationFormComponent } from './user-registration-form/user-reg
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { UserLoginFormComponent } from './user-login-form/user-login-form.component';
 import { MovieCardComponent } from './movie-card/movie-card.component';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+    { path: 'welcome', component: WelcomePageComponent },
+    { path: 'movies', component: MovieCardComponent },
+    { path: '', redirectTo: 'welcome', pathMatch: 'prefix'},
+];
 
 
 @NgModule({
@@ -22,7 +31,8 @@ import { MovieCardComponent } from './movie-card/movie-card.component';
         AppComponent,
         UserRegistrationFormComponent,
         UserLoginFormComponent,
-        MovieCardComponent
+        MovieCardComponent, 
+        WelcomePageComponent
     ],
     imports: [
         BrowserModule,
@@ -34,7 +44,10 @@ import { MovieCardComponent } from './movie-card/movie-card.component';
         MatButtonModule,
         MatCardModule,
         MatFormFieldModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        RouterModule.forRoot(appRoutes),
+        MatIconModule
+        
      
     ],
     
