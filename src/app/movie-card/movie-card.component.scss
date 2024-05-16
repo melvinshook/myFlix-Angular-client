@@ -1,0 +1,36 @@
+.container {
+    display: grid;
+    background-color: black;
+    width: 90%;
+    min-height: 100vh;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 90px;
+    scroll-behavior: smooth;
+  }
+  
+  .container .movie-cards {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+  }
+  
+  .movie-cards .card {
+    position: relative;
+    color: white;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+  
+  
+  img {
+    width: 100%;
+    height: 100%;
+    border: 6px solid white;
+    transition: all 0.5s;
+  }
+  img:hover {
+    transform: translateX(10px) translateY(-10px) scale(1.1);
+  }
+  
