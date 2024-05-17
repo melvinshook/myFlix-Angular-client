@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ɵPLATFORM_BROWSER_ID } from '@angular/common';
 import bootstrap from '../main.server';
@@ -18,11 +18,15 @@ import { UserLoginFormComponent } from './user-login-form/user-login-form.compon
 import { MovieCardComponent } from './movie-card/movie-card.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { RouterModule, Routes } from '@angular/router';
+import { DirectorInfoComponent } from './director-info/director-info.component';
+import { GenreCardComponent } from './genre-card/genre-card.component';
+
 
 const appRoutes: Routes = [
     { path: 'welcome', component: WelcomePageComponent },
     { path: 'movies', component: MovieCardComponent },
     { path: '', redirectTo: 'welcome', pathMatch: 'prefix'},
+    
 ];
 
 
@@ -32,7 +36,11 @@ const appRoutes: Routes = [
         UserRegistrationFormComponent,
         UserLoginFormComponent,
         MovieCardComponent, 
-        WelcomePageComponent
+        WelcomePageComponent,
+        DirectorInfoComponent
+        
+        
+       
     ],
     imports: [
         BrowserModule,
@@ -46,12 +54,16 @@ const appRoutes: Routes = [
         MatFormFieldModule,
         MatSnackBarModule,
         RouterModule.forRoot(appRoutes),
-        MatIconModule
+        MatIconModule,
+        GenreCardComponent
+       
         
      
     ],
     
-    providers: [],
+    providers: [
+        provideHttpClient(withFetch())
+    ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]
 

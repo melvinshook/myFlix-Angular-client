@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ director.name }}</mat-card-title>
+    <mat-card-subtitle>
+      <p>Born on: {{ director.birth }}</p>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content> {{ director.bio }}</mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="closeDialog()">
+      Close
+    </button>
+  </mat-card-actions>
+</mat-card>
