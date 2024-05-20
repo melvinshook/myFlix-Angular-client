@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 
 
 //Declaring the api url that will provide data for the client app
@@ -16,8 +16,10 @@ export class UserRegistrationService {
   }
 
   private getToken(): any{
+  
     return typeof window !=='undefined' ?
     localStorage.getItem('token'): null;
+    
   }
 
   private getUser(): any{
@@ -43,6 +45,7 @@ export class UserRegistrationService {
    public getAllMovies(): Observable<any> {
     //const token = localStorage.getItem('token');
     const token = this.getToken();
+    if (!token) return of([]);
     return this.http.get(apiUrl + 'movies', {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
@@ -204,16 +207,17 @@ deleteFavoriteMovie(MovieId: string): Observable<any> {
 
 
 private handleError(error: HttpErrorResponse): any {
-    if (error.error instanceof ErrorEvent) {
-    console.error('An error occurred:', error.error.message);
-    } else {
+  console.log(error);
+  /* if (error.error instanceof ErrorEvent) {
+    console.error('Some error occurred:', error.error.message);
+  } else {
     console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`);
-    }
-    return throwError(
-    'Something bad happened; please try again later.');
-  }
+      `Error Status code ${error.status}, ` +
+      `Error body is: ${error.error}`);
+  } */
+  const err = new Error('Something went wrong, please try again later.');
+  throwError(() => err);
+}
 }
 
 @Injectable({

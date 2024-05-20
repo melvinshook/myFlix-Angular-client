@@ -1,14 +1,19 @@
 <mat-card>
-  <mat-card-header>
-    <mat-card-title>{{ director.name }}</mat-card-title>
-    <mat-card-subtitle>
-      <p>Born on: {{ director.birth }}</p>
-    </mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content> {{ director.bio }}</mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="closeDialog()">
-      Close
+  <mat-card-header class="director-card-header">
+    <mat-card-title class="director-card-title"
+      >Director: {{ data.name }}</mat-card-title
+    >
+    <span class="fill-remaining-space"></span>
+    <button
+      class="dir-close-button"
+      aria-label="Close the director details button"
+      mat-dialog-close
+    >
+      &#10008;
     </button>
-  </mat-card-actions>
+  </mat-card-header>
+  <mat-card-content class="director-card-content">
+    <p>Bio: {{ data.bio }}</p>
+    <p>Birth: {{ data.birth }}</p>
+  </mat-card-content>
 </mat-card>

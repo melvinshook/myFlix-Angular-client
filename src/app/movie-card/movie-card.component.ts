@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserRegistrationService } from '../fetch-api-data.service'
 import { DirectorInfoComponent } from '../director-info/director-info.component';
 import { MatDialog } from '@angular/material/dialog';
-import { GenreCardComponent } from '../genre-card/genre-card.component';
 
 
 @Component({
@@ -13,7 +12,7 @@ import { GenreCardComponent } from '../genre-card/genre-card.component';
 })
 export class MovieCardComponent implements OnInit{
   movies: any[] = [];
-  constructor(public fetchApiData: UserRegistrationService,
+  constructor(public fetchMovies: UserRegistrationService,
     private dialog: MatDialog
   ) { }
 
@@ -22,16 +21,16 @@ ngOnInit(): void {
 }
 
 getMovies(): void {
-  this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+  this.fetchMovies.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
       console.log(this.movies);
       return this.movies;
     });
   }
   // opens director info box
-  openDirectorDialog(director: any): void {
+  openDirectorDialog(director: object): void {
     this.dialog.open(DirectorInfoComponent, {
-      data: { director},
+      data: director,
       width: '600px'
     });
   }
@@ -42,12 +41,12 @@ getMovies(): void {
       data: { movie },
       width: '600px',
     });
-  }
+  } 
 
-  openGenreDialog(genre: any): void {
+  /* openGenreDialog(genre: any): void {
     this.dialog.open(GenreCardComponent, {
       data: { genre },
       width: '600px',
     });
-  }
+  } */
 }
