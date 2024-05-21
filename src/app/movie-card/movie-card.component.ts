@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserRegistrationService } from '../fetch-api-data.service'
 import { DirectorInfoComponent } from '../director-info/director-info.component';
 import { MatDialog } from '@angular/material/dialog';
+import { GenreCardComponent } from '../genre-card/genre-card.component';
+import { MovieDetailsCardComponent } from '../movie-details-card/movie-details-card.component';
 
 
 @Component({
@@ -36,17 +38,17 @@ getMovies(): void {
   }
 
   // opens movie details
-  openDetailsDialog(movie: any): void {
-    this.dialog.open(MovieCardComponent, {
-      data: { movie },
+  openDetailsDialog(description: string): void {
+    this.dialog.open(MovieDetailsCardComponent, {
+      data: description,
       width: '600px',
     });
   } 
 
-  /* openGenreDialog(genre: any): void {
+  openGenreDialog(genre: object): void {
     this.dialog.open(GenreCardComponent, {
-      data: { genre },
+      data: genre,
       width: '600px',
     });
-  } */
+  } 
 }

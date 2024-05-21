@@ -15,10 +15,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserRegistrationFormComponent } from './user-registration-form/user-registration-form.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { UserLoginFormComponent } from './user-login-form/user-login-form.component';
-import { MovieCardComponent } from './movie-card/movie-card.component';
+import { MovieDetailsCardComponent } from './movie-details-card/movie-details-card.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { DirectorInfoComponent } from './director-info/director-info.component';
+import { GenreCardComponent } from './genre-card/genre-card.component';
+import { MovieCardComponent } from './movie-card/movie-card.component';
 
 
 
@@ -37,7 +39,9 @@ const appRoutes: Routes = [
         UserLoginFormComponent,
         MovieCardComponent, 
         WelcomePageComponent,
-        DirectorInfoComponent
+        DirectorInfoComponent,
+        GenreCardComponent,
+        MovieDetailsCardComponent
         
         
        
