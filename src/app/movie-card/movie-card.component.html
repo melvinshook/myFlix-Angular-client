@@ -1,3 +1,5 @@
+<app-toolbar></app-toolbar>
+
 <div class="container">
   <div class="movie-cards">
     <mat-card *ngFor="let movie of movies" class="card">
@@ -26,6 +28,19 @@
         <button mat-button color="primary" (click)="openDetailsDialog(movie)">
           Description
         </button>
+        <!-- <button
+          class="heart-icon"
+          mat-icon-button
+          (click)="
+            isFavorite(movie)
+              ? removeTitleFromFavorites(movie)
+              : addTitleToFavorites(movie)
+          "
+        >
+          <mat-icon>{{
+            isFavorite(movie) ? "favorite" : "favorite_border"
+          }}</mat-icon> 
+        </button> -->
         <mat-icon>favorite_border</mat-icon>
       </mat-card-actions>
     </mat-card>

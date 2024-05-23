@@ -21,6 +21,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { DirectorInfoComponent } from './director-info/director-info.component';
 import { GenreCardComponent } from './genre-card/genre-card.component';
 import { MovieCardComponent } from './movie-card/movie-card.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 
 
@@ -28,6 +30,7 @@ const appRoutes: Routes = [
     { path: 'welcome', component: WelcomePageComponent },
     { path: 'movies', component: MovieCardComponent },
     { path: '', redirectTo: 'welcome', pathMatch: 'prefix'},
+    { path: 'profile', component: UserProfileComponent}
     
 ];
 
@@ -41,7 +44,9 @@ const appRoutes: Routes = [
         WelcomePageComponent,
         DirectorInfoComponent,
         GenreCardComponent,
-        MovieDetailsCardComponent
+        MovieDetailsCardComponent,
+        UserProfileComponent,
+        ToolbarComponent
         
         
        
