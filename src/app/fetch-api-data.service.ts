@@ -144,12 +144,12 @@ editUser(userName: string): Observable<any> {
 }
 
 //making call to api to delete user by username
-deleteUser(userName: string): Observable<any> {
+deleteUser(): Observable<any> {
   // const user = JSON.parse(localStorage.getItem('user') || '{}');
   // const token = localStorage.getItem('token');
   const user = this.getUser();
   const token = this.getToken();
-  return this.http.delete(apiUrl + 'users/' + userName, {
+  return this.http.delete(apiUrl + 'users/' + user.email, {
     headers: new HttpHeaders({
       Authorization: 'Bearer ' + token,
     })

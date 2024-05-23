@@ -62,14 +62,21 @@ export class UserProfileComponent implements OnInit {
     return this.favoriteMovies.includes(movie._id);
   }
 
-  
-  // Delete user profile
-  deleteUser(userName: string): void {
-    this.fetchApiData.deleteUser(userName).subscribe(() => {
-      this.snackBar.open('Account has been successfully deleted');
-      localStorage.clear();
-      this.router.navigate(['welcome']);
-    });
+
+ /**
+     * Deletes the user's account.
+     */
+  async deleteUser(): Promise<void> {
+    console.log('deleteUser function called:', this.userData.email)
+    if (confirm('Do you want to delete your account permanently?')) {
+      this.fetchApiData.deleteUser().subscribe(() => {
+        this.snackBar.open('Account deleted successfully!', 'OK', {
+          duration: 3000,
+        });
+        localStorage.clear();
+        this.router.navigate(['welcome']);
+      });
+    }
   }
 
   // Add movie to favorites 

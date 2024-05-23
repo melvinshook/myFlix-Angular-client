@@ -65,18 +65,28 @@ getMovies(): void {
       }
     });
   }
-
+/**
+    * Checks if a movie is in the user's favorite list.
+    * @param movie - The movie to check.
+    * @returns True if the movie is in the favorite list, false otherwise.
+    */
   isFav(movie: any): boolean {
     return this.favoriteMovies.includes(movie._id);
   }
-
+ /**
+    * Toggles a movie in the user's favorite list.
+    * @param movie - The movie to toggle.
+    */
   toggleFav(movie: any): void {
     console.log('toggling favorite movie');
     const isFavorite = this.isFav(movie);
     console.log('isFavorite');
     isFavorite ? this.deleteFavMovies(movie) : this.addFavMovies(movie);
   }
-
+ /**
+     * Adds a movie to the user's favorite list.
+     * @param movie - The movie to add to favorites.
+     */
   addFavMovies(movie: any): void {
     let user = localStorage.getItem('user');
     
@@ -91,7 +101,10 @@ getMovies(): void {
         });
       });
     }
-
+/**
+     * Deletes a movie from the user's favorite list.
+     * @param movie - The movie to remove from favorites.
+     */
     deleteFavMovies(movie: any): void {
       let user = localStorage.getItem('user');
       if (user) {
