@@ -12,19 +12,25 @@
 
       <!-- Display user's name -->
       <div class="user-info-display">
-        <label>Name</label>
+        <label>Name: </label>
         <span>{{ userData.userName }}</span>
       </div>
 
       <!-- Display user's birthday -->
       <div class="user-info-display">
-        <label>Birthday</label>
+        <label>Birthday: </label>
         <span>{{ userData.birthday | date : "longDate" }}</span>
+      </div>
+
+      <!-- Display user's password -->
+      <div class="user-info-password">
+        <label>Password: </label>
+        <span>{{ userData.password }}</span>
       </div>
 
       <!-- Display user's email -->
       <div class="user-info-display">
-        <label>Email</label>
+        <label>Email: </label>
         <span>{{ userData.email }}</span>
       </div>
 
@@ -54,6 +60,17 @@
               [(ngModel)]="userData.birthday"
               name="birthday"
               placeholder="Birthday"
+            />
+          </mat-form-field>
+          <!-- Input to update user's password -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              [(ngModel)]="userData.password"
+              name="password"
+              placeholder="Password"
             />
           </mat-form-field>
 
@@ -102,7 +119,7 @@
         <div class="movie-cards">
           <mat-card *ngFor="let movie of favoriteMovies" class="card">
             <!-- Movie image -->
-            <img src="{{ movie.image }}" alt="{{ movie._id }}" />
+            <img src="{{ movie.imagePath }}" alt="{{ movie._id }}" />
           </mat-card>
         </div>
       </div>

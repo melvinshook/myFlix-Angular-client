@@ -28,20 +28,14 @@
         <button mat-button color="primary" (click)="openDetailsDialog(movie)">
           Description
         </button>
-        <!-- <button
-          class="heart-icon"
-          mat-icon-button
-          (click)="
-            isFavorite(movie)
-              ? removeTitleFromFavorites(movie)
-              : addTitleToFavorites(movie)
-          "
-        >
-          <mat-icon>{{
-            isFavorite(movie) ? "favorite" : "favorite_border"
-          }}</mat-icon> 
-        </button> -->
-        <mat-icon>favorite_border</mat-icon>
+        <button mat-icon-button (click)="toggleFav(movie)">
+          <mat-icon *ngIf="isFav(movie)" style="transform: scale(1.5)">
+            favorite
+          </mat-icon>
+          <mat-icon *ngIf="!isFav(movie)" style="transform: scale(1.5)">
+            favorite_border
+          </mat-icon>
+        </button>
       </mat-card-actions>
     </mat-card>
   </div>
