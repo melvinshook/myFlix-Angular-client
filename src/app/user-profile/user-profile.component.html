@@ -74,7 +74,11 @@
             <button mat-raised-button type="submit" color="primary">
               Update
             </button>
-            <button mat-raised-button color="warn" (click)="deleteUser()">
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="deleteUser(userName)"
+            >
               Delete User
             </button>
           </div>

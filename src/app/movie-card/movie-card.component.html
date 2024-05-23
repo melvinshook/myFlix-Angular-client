@@ -4,7 +4,7 @@
   <div class="movie-cards">
     <mat-card *ngFor="let movie of movies" class="card">
       <mat-card-header>
-        <mat-card-title>{{ movie.title }}</mat-card-title>
+        <mat-card-title class="movie-title">{{ movie.title }}</mat-card-title>
         <mat-card-subtitle
           >Directed by: {{ movie.director.name }}</mat-card-subtitle
         >
