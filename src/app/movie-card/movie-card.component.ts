@@ -71,7 +71,6 @@ getMovies(): void {
     * @returns True if the movie is in the favorite list, false otherwise.
     */
   isFav(movie: any): boolean {
-    // const favorite = this.favoriteMovies.filter((movie._id), movie._id === movie.MovieId);
     return this.favoriteMovies.includes(movie._id);
   }
  /**
@@ -80,15 +79,15 @@ getMovies(): void {
     */
   toggleFav(movie: any): void {
     console.log('toggling favorite movie');
-    const isFavorite = this.isFav(movie);
+    const isFavorite = this.isFav(movie._id);
     console.log('isFavorite');
-    isFavorite ? this.deleteFavMovies(movie) : this.addFavMovies(movie);
+    isFavorite ? this.deleteFavMovies(movie._id) : this.addFavMovies(movie._id);
   }
  /**
      * Adds a movie to the user's favorite list.
      * @param movie - The movie to add to favorites.
      */
-  addFavMovies(movie: any): void {
+   addFavMovies(movie: any): void {
     let user = localStorage.getItem('user');
     
       this.fetchMovies.addFavoriteMovie(movie._id).subscribe((resp) => {
@@ -101,7 +100,8 @@ getMovies(): void {
           duration: 3000,
         });
       });
-    }
+    } 
+ 
 /**
      * Deletes a movie from the user's favorite list.
      * @param movie - The movie to remove from favorites.
@@ -110,7 +110,7 @@ getMovies(): void {
       let user = localStorage.getItem('user');
       if (user) {
         let parsedUser = JSON.parse(user);
-        this.fetchMovies.deleteFavoriteMovie(movie.MovieId).subscribe((resp) => {
+        this.fetchMovies.deleteFavoriteMovie(movie._id).subscribe((resp) => {
           localStorage.setItem('user', JSON.stringify(resp));
           // Remove the movie ID from the favoritemovie array
           this.favoriteMovies = this.favoriteMovies.filter((id) => id !== movie._id);

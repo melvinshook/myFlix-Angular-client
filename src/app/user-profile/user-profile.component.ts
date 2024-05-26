@@ -80,7 +80,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   // Add movie to favorites 
-  addFaveMovie(movie: any): void {
+  /* addFaveMovie(movie: any): void {
     this.fetchApiData.addFavoriteMovie(movie.MovieId).subscribe((result) => {
       localStorage.setItem('user', JSON.stringify(result));
       this.getFavMovies(movie);
@@ -88,7 +88,7 @@ export class UserProfileComponent implements OnInit {
         duration: 1000,
       });
     });
-  }
+  } */
 
   // Delte movie from favorites 
   deleteMovie(movie: any): void {
@@ -103,10 +103,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   // Toggle user's favorite movies 
-  toggleFavMovies(movie: any): void {
+  /* toggleFavMovies(movie: any): void {
     const isFavorite = this.isFav(movie);
     isFavorite
     ? this.deleteMovie(movie)
     : this.addFaveMovie(movie);
-  }
+  } */
 }
