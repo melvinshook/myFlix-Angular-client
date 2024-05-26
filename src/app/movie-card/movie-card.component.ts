@@ -71,6 +71,7 @@ getMovies(): void {
     * @returns True if the movie is in the favorite list, false otherwise.
     */
   isFav(movie: any): boolean {
+    // const favorite = this.favoriteMovies.filter((movie._id), movie._id === movie.MovieId);
     return this.favoriteMovies.includes(movie._id);
   }
  /**
@@ -90,7 +91,7 @@ getMovies(): void {
   addFavMovies(movie: any): void {
     let user = localStorage.getItem('user');
     
-      this.fetchMovies.addFavoriteMovie(movie.MovieId).subscribe((resp) => {
+      this.fetchMovies.addFavoriteMovie(movie._id).subscribe((resp) => {
         console.log('server response:', resp);
         localStorage.setItem('user', JSON.stringify(resp));
         // Add the movie ID to the favoritemovie array
