@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, of } from 'rxjs';
+import { Observable, throwError, of, tap } from 'rxjs';
 
 
 //Declaring the api url that will provide data for the client app
@@ -10,6 +10,7 @@ const apiUrl = 'https://movie-api-careerfoundry-b3e87d3aa42c.herokuapp.com/';
   providedIn: 'root'
 })
 export class UserRegistrationService {
+  userFavoriteMovies: string[] = [];
   // Inject the HttpClient module to the constructor params
  // This will provide HttpClient to the entire class, making it available via this.http
   constructor(private http: HttpClient) {
@@ -92,34 +93,43 @@ export class UserRegistrationService {
   public getMovieGenre(genreName: string): Observable<any> {
     // const token = localStorage.getItem('token');
     const token = this.getToken();
-    return this.http.get(apiUrl + 'movies/genres/' + genreName, {headers: new HttpHeaders(
-      {
-        Authorization: 'Bearer ' + token,
-      })}).pipe(
-        map(this.extractResponseData),
-        catchError(this.handleError)
-      );
+    return this.http.get(apiUrl + 'movies/genres/' + genreName, {
+      headers: new HttpHeaders(
+        {
+          Authorization: 'Bearer ' + token,
+        })
+    }).pipe(
+      map(this.extractResponseData),
+      catchError(this.handleError)
+    );
   }
+    
+   
 
   // making call to api to get user by username 
-  public getUserName(userName: string): Observable<any> {
-    // const token = localStorage.getItem('token');
-    const user = this.getUser();
-    const token = this.getToken();
-    return this.http.get(apiUrl + 'users/' + userName, {headers: new HttpHeaders(
-      {
-        Authorization: 'Bearer ' + token,
-      })}).pipe(
-        map(this.extractResponseData),
-        catchError(this.handleError)
-      );
+  getUserName(): Observable<any> {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const token = localStorage.getItem("token");
+    const url = apiUrl + "users/" + user.userName;
+    const headers = new HttpHeaders({
+      Authorization: "Bearer " + token,
+    });
+    return this.http.get(url, { headers }).pipe(
+      tap((result: any) => {
+      }),
+      map(this.extractResponseData),
+      catchError((error) => {
+        console.error("API Error:", error);
+        return this.handleError(error);
+      })
+    );
   }
 
   // making call to api to get favorite movies for a user
   public getFavorites(MovieID: string): Observable<any> {
     // const token = localStorage.getItem('token');
     const token = this.getToken();
-    return this.http.get(apiUrl + 'users/:userName/movies/' + MovieID, {headers: new HttpHeaders(
+    return this.http.get(apiUrl + 'users/userName/movies/' + MovieID, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
       })}).pipe(
@@ -159,17 +169,22 @@ deleteUser(): Observable<any> {
   );
 }
 
-//making call to api to add favorite movie to users list 
+ 
+
+   //making call to api to add favorite movie to users list 
 addFavoriteMovie(MovieId: string): Observable<any> {
   // const token = localStorage.getItem('token');
   // const user = JSON.parse(localStorage.getItem('user') || '{}');
   const user = this.getUser();
   const token = this.getToken();
+  if (!this.userFavoriteMovies) {
+    this. userFavoriteMovies = [];
+  }
 
-  user.FavoriteMovies.push(MovieId);
+  this.userFavoriteMovies.push(MovieId);
   localStorage.setItem('user', JSON.stringify(user));
   
-  return this.http.put(apiUrl + 'users/:userName/movies/' + MovieId, {}, {
+  return this.http.post(apiUrl + 'users/:userName/movies/' + MovieId, {}, {
     headers: new HttpHeaders({
       "Content-Type": "application/json",
       Authorization: 'Bearer ' + token,
@@ -179,6 +194,13 @@ addFavoriteMovie(MovieId: string): Observable<any> {
     catchError(this.handleError),
   );
 }
+ 
+
+
+
+
+
+
 
 //making call to api to delete movie from users list 
 deleteFavoriteMovie(MovieId: string): Observable<any> {

@@ -16,7 +16,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class MovieCardComponent implements OnInit{
   movies: any[] = [];
   favoriteMovies: any[] = [];
-  constructor(public fetchMovies: UserRegistrationService,
+  userData = { UserId: "", favoriteMovies: []}
+  constructor(public fetchApiData: UserRegistrationService,
     private dialog: MatDialog,
     public snackBar: MatSnackBar
   ) { }
@@ -26,7 +27,7 @@ ngOnInit(): void {
 }
 
 getMovies(): void {
-  this.fetchMovies.getAllMovies().subscribe((resp: any) => {
+  this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
       console.log(this.movies);
       return this.movies;
@@ -56,7 +57,7 @@ getMovies(): void {
   } 
 
   getFavorites(): void {
-    this.fetchMovies.getAllMovies().subscribe((resp: any) => {
+    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       if (Array.isArray(resp)) {
         this.movies = resp;
         this.movies.forEach((movie: any) => {
@@ -77,20 +78,25 @@ getMovies(): void {
     * Toggles a movie in the user's favorite list.
     * @param movie - The movie to toggle.
     */
-  toggleFav(movie: any): void {
+  /* toggleFav(movie: any): void {
     console.log('toggling favorite movie');
     const isFavorite = this.isFav(movie._id);
     console.log('isFavorite');
     isFavorite ? this.deleteFavMovies(movie._id) : this.addFavMovies(movie._id);
   }
- /**
+ 
      * Adds a movie to the user's favorite list.
      * @param movie - The movie to add to favorites.
-     */
+     
    addFavMovies(movie: any): void {
     let user = localStorage.getItem('user');
+    if (user) {
+      let parsedUser = JSON.parse(user);
+      console.log('user:', parsedUser);
+      this.userData.UserId = parsedUser._id;
+      console.log('userData:', this.userData);
     
-      this.fetchMovies.addFavoriteMovie(movie._id).subscribe((resp) => {
+      this.fetchApiData.addFavoriteMovie(movie._id).subscribe((resp) => {
         console.log('server response:', resp);
         localStorage.setItem('user', JSON.stringify(resp));
         // Add the movie ID to the favoritemovie array
@@ -101,7 +107,16 @@ getMovies(): void {
         });
       });
     } 
+  } */
  
+  addFavMovies(MovieId: string): void {
+    this.fetchApiData.addFavoriteMovie(MovieId); // Line 99
+}
+
+toggleFav(MovieId: string): void {
+    this.addFavMovies(MovieId); // Line 85
+}
+
 /**
      * Deletes a movie from the user's favorite list.
      * @param movie - The movie to remove from favorites.
@@ -110,7 +125,7 @@ getMovies(): void {
       let user = localStorage.getItem('user');
       if (user) {
         let parsedUser = JSON.parse(user);
-        this.fetchMovies.deleteFavoriteMovie(movie._id).subscribe((resp) => {
+        this.fetchApiData.deleteFavoriteMovie(movie._id).subscribe((resp) => {
           localStorage.setItem('user', JSON.stringify(resp));
           // Remove the movie ID from the favoritemovie array
           this.favoriteMovies = this.favoriteMovies.filter((id) => id !== movie._id);

@@ -53,13 +53,13 @@ export class UserProfileComponent implements OnInit {
   }
 
   // Fetch users favortie movies 
-  getFavMovies(movie: any): void {
-    this.fetchApiData.getFavorites(movie.MovieId).subscribe((result: any) => {
+  getFavMovies(MovieId: any): void {
+    this.fetchApiData.getFavorites(MovieId).subscribe((result: any) => {
      this.favoriteMovies = result.favoriteMovies;
     });
   }
-  isFav(movie: any): boolean {
-    return this.favoriteMovies.includes(movie._id);
+  isFav(MovieId: any): boolean {
+    return this.favoriteMovies.includes(MovieId);
   }
 
 
