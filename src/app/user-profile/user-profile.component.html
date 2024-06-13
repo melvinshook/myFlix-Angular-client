@@ -88,7 +88,7 @@
 
           <!-- Update and Delete User buttons -->
           <div class="button-container">
-            <button mat-raised-button type="submit" color="primary">
+            <button mat-raised-button color="primary" (click)="updateUser()">
               Update
             </button>
             <button mat-raised-button color="warn" (click)="deleteUser()">
@@ -104,20 +104,31 @@
     <div class="content">
       <h2>Favorite Movies</h2>
 
-      <!-- Container for favorite movies -->
-      <div class="favorite-movies-container">
-        <!-- Message when there are no favorite movies -->
-        <div *ngIf="favoriteMovies.length === 0" class="movie-cards">
-          <p>No favorite movies found!</p>
-        </div>
-
-        <!-- Display favorite movies -->
-        <div class="movie-cards">
-          <mat-card *ngFor="let movie of favoriteMovies" class="card">
-            <!-- Movie image -->
-            <img src="{{ movie.title }}" alt="{{ movie._id }}" />
-          </mat-card>
-        </div>
+      <!-- Favorite Movies -->
+      <mat-card-title>Favorite Movies</mat-card-title>
+      <div style="display: flex">
+        <mat-card
+          *ngFor="let movie of this.favoriteMovies"
+          style="width: 280px; margin-right: 10px"
+        >
+          <mat-card-header>
+            <mat-card-title>{{ movie.title }}</mat-card-title>
+            <mat-card-subtitle
+              >Directed by: {{ movie.director.name }}</mat-card-subtitle
+            >
+          </mat-card-header>
+          <img src="{{ movie.imagePath }}" alt="{{ movie.title }}" />
+          <mat-card-actions>
+            <button
+              mat-raised-button
+              (click)="deleteFavMovie(movie._id)"
+              color="primary"
+              style="margin-right: 10px"
+            >
+              Remove from favorite
+            </button>
+          </mat-card-actions>
+        </mat-card>
       </div>
     </div>
   </div>

@@ -14,13 +14,7 @@ import { formatDate } from '@angular/common';
 })
 export class UserProfileComponent implements OnInit {
   userName = '';
-  @Input() userData = {
-    userName: '',
-    password: '',
-    email: '',
-    birthday: '',
-    favoriteMovies: []
-  };
+  @Input() userData: any = {};
 
   user: any= {};
   movies: any[] = [];
@@ -33,10 +27,16 @@ export class UserProfileComponent implements OnInit {
     public router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.userData);
+    this.user = JSON.parse(localStorage.getItem('user') || "{}");
+    this.getFavMovies();
+    console.log(this.user);
+    console.log(this.favoriteMovies);
+  }
 
   updateUser(): void {
-    this.fetchApiData.editUser(this.userName).subscribe(
+    this.fetchApiData.editUser().subscribe(
       (resp: any) => {
         this.userData = resp;
         console.log(resp);
@@ -53,31 +53,49 @@ export class UserProfileComponent implements OnInit {
   }
 
   // Fetch users favortie movies 
-  getFavMovies(MovieId: any): void {
+  /* getFavMovies(MovieId: any): void {
     this.fetchApiData.getFavorites(MovieId).subscribe((result: any) => {
      this.favoriteMovies = result.favoriteMovies;
     });
   }
   isFav(MovieId: any): boolean {
     return this.favoriteMovies.includes(MovieId);
-  }
+  } */
+
+    getFavMovies(): void {
+      this.fetchApiData.getAllMovies().subscribe((res: any) => {
+        this.favoriteMovies = res.filter((movie: any) => {
+          return this.user.favoriteMovies.includes(movie._id)
+        })
+      }, (err: any) => {
+        console.error(err);
+      });
+    }
+    
 
 
  /**
      * Deletes the user's account.
      */
-  async deleteUser(): Promise<void> {
-    console.log('deleteUser function called:', this.userData.email)
-    if (confirm('Do you want to delete your account permanently?')) {
-      this.fetchApiData.deleteUser().subscribe(() => {
-        this.snackBar.open('Account deleted successfully!', 'OK', {
-          duration: 3000,
-        });
-        localStorage.clear();
-        this.router.navigate(['welcome']);
-      });
-    }
+  deleteUser(): void {
+    this.fetchApiData.deleteUser().subscribe((resp: any) => {
+      this.user = JSON.parse(localStorage.getItem('user') || "");
+    })
   }
+
+  // Delete movie from favorties
+   deleteFavMovie(MovieId: string): void {
+    console.log(MovieId);
+
+    this.fetchApiData.deleteFavoriteMovie(MovieId).subscribe((resp: any) => {
+      localStorage.setItem('user', JSON.stringify(resp));
+      this.snackBar.open('Movie has been removed from favorites', 'OK', {
+        duration: 3000,
+      });
+console.log(resp);
+    })
+   
+}
 
   // Add movie to favorites 
   /* addFaveMovie(movie: any): void {
@@ -91,16 +109,16 @@ export class UserProfileComponent implements OnInit {
   } */
 
   // Delte movie from favorites 
-  deleteMovie(movie: any): void {
+  /* deleteMovie(movie: any): void {
     this.fetchApiData.deleteFavoriteMovie(movie.MovieId).subscribe((result) => {
       localStorage.setItem('user', JSON.stringify(result));
       this.favoriteMovies = this.favoriteMovies.filter((id) => id !== movie.id);
-      this.getFavMovies(movie);
+      this.getFavMovies();
       this.snackBar.open(`${movie.title} has been deleted from your favorites`, 'OK', {
         duration: 1000,
       });
     });
-  }
+  } */
 
   // Toggle user's favorite movies 
   /* toggleFavMovies(movie: any): void {

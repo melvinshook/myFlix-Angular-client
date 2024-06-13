@@ -83,12 +83,11 @@ getMovies(): void {
     const isFavorite = this.isFav(movie._id);
     console.log('isFavorite');
     isFavorite ? this.deleteFavMovies(movie._id) : this.addFavMovies(movie._id);
-  }
+  } */
  
-     * Adds a movie to the user's favorite list.
+    /* * Adds a movie to the user's favorite list.
      * @param movie - The movie to add to favorites.
-     
-   addFavMovies(movie: any): void {
+     addFavMovies(movie: any): void {
     let user = localStorage.getItem('user');
     if (user) {
       let parsedUser = JSON.parse(user);
@@ -108,20 +107,23 @@ getMovies(): void {
       });
     } 
   } */
+  
  
   addFavMovies(MovieId: string): void {
-    this.fetchApiData.addFavoriteMovie(MovieId); // Line 99
-}
+    console.log(MovieId);
 
-toggleFav(MovieId: string): void {
-    this.addFavMovies(MovieId); // Line 85
+    this.fetchApiData.addFavoriteMovie(MovieId).subscribe((resp: any) => {
+      localStorage.setItem('user', JSON.stringify(resp));
+console.log(resp);
+    })
+   
 }
 
 /**
      * Deletes a movie from the user's favorite list.
      * @param movie - The movie to remove from favorites.
      */
-    deleteFavMovies(movie: any): void {
+   /* deleteFavMovies(movie: any): void {
       let user = localStorage.getItem('user');
       if (user) {
         let parsedUser = JSON.parse(user);
@@ -135,7 +137,7 @@ toggleFav(MovieId: string): void {
           });
         });
       }
-    }
+    } */
 
   }
 

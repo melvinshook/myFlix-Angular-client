@@ -28,7 +28,7 @@
         <button mat-button color="primary" (click)="openDetailsDialog(movie)">
           Details
         </button>
-        <button mat-icon-button (click)="toggleFav(movie.id)">
+        <button mat-icon-button (click)="addFavMovies(movie._id)">
           <mat-icon *ngIf="isFav(movie)" style="transform: scale(1)">
             favorite
           </mat-icon>
