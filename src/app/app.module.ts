@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { withFetch, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ɵPLATFORM_BROWSER_ID } from '@angular/common';
 import bootstrap from '../main.server';
@@ -35,25 +35,20 @@ const appRoutes: Routes = [
 ];
 
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppComponent,
         UserRegistrationFormComponent,
         UserLoginFormComponent,
-        MovieCardComponent, 
+        MovieCardComponent,
         WelcomePageComponent,
         DirectorInfoComponent,
         GenreCardComponent,
         MovieDetailsCardComponent,
         UserProfileComponent,
         ToolbarComponent
-        
-        
-       
     ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    bootstrap: [AppComponent], imports: [BrowserModule,
         FormsModule,
         BrowserAnimationsModule,
         MatDialogModule,
@@ -63,18 +58,9 @@ const appRoutes: Routes = [
         MatFormFieldModule,
         MatSnackBarModule,
         RouterModule.forRoot(appRoutes),
-        MatIconModule,
-       
-        
-     
-    ],
-    
-    providers: [
-        provideHttpClient(withFetch())
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    bootstrap: [AppComponent]
-
-})
+        MatIconModule], providers: [
+        provideHttpClient(withFetch()),
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 
 export class AppModule { } 
