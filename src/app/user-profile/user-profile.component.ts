@@ -32,7 +32,7 @@ export class UserProfileComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user') || "{}");
     this.getFavMovies();
     console.log(this.user);
-    console.log(this.favoriteMovies);
+    console.log(this.favoriteMovies); 
   }
 
   updateUser(): void {

@@ -49,6 +49,7 @@ export class UserLoginFormComponent implements OnInit {
    */
   loginUser(): void {
     this.fetchApiData.userLogin(this.userData).subscribe((result) => {
+      console.log(result);
       localStorage.setItem('user', JSON.stringify(result.user));
       localStorage.setItem('token', result.token);
       this.dialogRef.close(); // Will close modal on success
@@ -56,7 +57,9 @@ export class UserLoginFormComponent implements OnInit {
         duration: 2000
       });
       this.router.navigate(['movies']);
-    }, (error) => {
+    }, 
+    (error) => {
+      console.log(error)
       this.snackBar.open('User login failed', 'OK', {
         duration: 2000
       });

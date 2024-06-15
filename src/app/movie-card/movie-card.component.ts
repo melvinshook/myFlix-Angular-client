@@ -16,7 +16,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class MovieCardComponent implements OnInit{
   movies: any[] = [];
   favoriteMovies: any[] = [];
-  userData = { UserId: "", favoriteMovies: []}
   constructor(public fetchApiData: UserRegistrationService,
     private dialog: MatDialog,
     public snackBar: MatSnackBar
