@@ -8,14 +8,13 @@ import { UserRegistrationService } from '../fetch-api-data.service';
 @Component({
   selector: 'app-director-info',
   templateUrl: './director-info.component.html',
-  styleUrl: './director-info.component.scss'
+  styleUrl: './director-info.component.scss',
 })
 export class DirectorInfoComponent implements OnInit {
-
   /**
-     * Constructor for DirectorInfoComponent.
-     * @param data - Data injected into the component containing director information.
-     */
+   * Constructor for DirectorInfoComponent.
+   * @param data - Data injected into the component containing director information.
+   */
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
@@ -23,14 +22,11 @@ export class DirectorInfoComponent implements OnInit {
       bio: string;
       birth: string;
     },
-    public fetchApiData: UserRegistrationService
-  ) { }
+    public fetchApiData: UserRegistrationService,
+  ) {}
 
   /**
-    * Angular lifecycle hook called after component initialization.
-    */
-  ngOnInit(): void {
-
-  }
-
+   * Angular lifecycle hook called after component initialization.
+   */
+  ngOnInit(): void {}
 }
