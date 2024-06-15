@@ -28,16 +28,16 @@ export class UserRegistrationService {
     JSON.parse(localStorage.getItem('user') || '{}'): {};
   }
  // Making the api call for the user registration endpoint
-  public userRegistration(userData: any): Observable<any> {
-    console.log(userData);
-    return this.http.post(apiUrl + 'users', userData).pipe(
+  public userRegistration(userDetails: any): Observable<any> {
+    console.log(userDetails);
+    return this.http.post(apiUrl + 'users', userDetails).pipe(
     catchError(this.handleError)
     );
   }
 
   // making call to api for user login 
-  public userLogin(userData: any): Observable<any> {
-    return this.http.post(apiUrl + 'login', userData).pipe(
+  public userLogin(userDetails: any): Observable<any> {
+    return this.http.post(apiUrl + 'login', userDetails).pipe(
       catchError(this.handleError)
     );
   }
