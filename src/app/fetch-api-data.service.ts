@@ -212,8 +212,9 @@ export class UserRegistrationService {
       `Error Status code ${error.status}, ` +
       `Error body is: ${error.error}`);
   } */
-    const err = new Error('Something went wrong, please try again later.');
-    throwError(() => err);
+    return throwError(
+      () => new Error('Something went wrong, please try again later.'),
+    );
   }
 }
 
