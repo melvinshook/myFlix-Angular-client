@@ -10,7 +10,7 @@ const apiUrl = 'https://movie-api-careerfoundry-b3e87d3aa42c.herokuapp.com/';
   providedIn: 'root'
 })
 export class UserRegistrationService {
-  userFavoriteMovies: string[] = [];
+ 
   // Inject the HttpClient module to the constructor params
  // This will provide HttpClient to the entire class, making it available via this.http
   constructor(private http: HttpClient) {
@@ -28,16 +28,16 @@ export class UserRegistrationService {
     JSON.parse(localStorage.getItem('user') || '{}'): {};
   }
  // Making the api call for the user registration endpoint
-  public userRegistration(userDetails: any): Observable<any> {
-    console.log(userDetails);
-    return this.http.post(apiUrl + 'users', userDetails).pipe(
+  public userRegistration(userData: any): Observable<any> {
+    console.log(userData);
+    return this.http.post(apiUrl + 'users', userData).pipe(
     catchError(this.handleError)
     );
   }
 
   // making call to api for user login 
-  public userLogin(userDetails: any): Observable<any> {
-    return this.http.post(apiUrl + 'login', userDetails).pipe(
+  public userLogin(userData: any): Observable<any> {
+    return this.http.post(apiUrl + 'login', userData).pipe(
       catchError(this.handleError)
     );
   }
