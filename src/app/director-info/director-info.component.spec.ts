@@ -8,10 +8,9 @@ describe('DirectorInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DirectorInfoComponent]
-    })
-    .compileComponents();
-    
+      imports: [DirectorInfoComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(DirectorInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

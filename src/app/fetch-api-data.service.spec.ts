@@ -1,9 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { catchError } from 'rxjs/operators';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 
 import { FetchApiDataService } from './fetch-api-data.service';
 

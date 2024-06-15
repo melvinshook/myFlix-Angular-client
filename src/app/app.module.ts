@@ -1,5 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import {
+  withFetch,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ɵPLATFORM_BROWSER_ID } from '@angular/common';
 import bootstrap from '../main.server';
@@ -24,57 +28,44 @@ import { MovieCardComponent } from './movie-card/movie-card.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
-
-
 const appRoutes: Routes = [
-    { path: 'welcome', component: WelcomePageComponent },
-    { path: 'movies', component: MovieCardComponent },
-    { path: '', redirectTo: 'welcome', pathMatch: 'prefix'},
-    { path: 'profile', component: UserProfileComponent}
-    
+  { path: 'welcome', component: WelcomePageComponent },
+  { path: 'movies', component: MovieCardComponent },
+  { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
+  { path: 'profile', component: UserProfileComponent },
 ];
 
-
 @NgModule({
-    declarations: [
-        AppComponent,
-        UserRegistrationFormComponent,
-        UserLoginFormComponent,
-        MovieCardComponent, 
-        WelcomePageComponent,
-        DirectorInfoComponent,
-        GenreCardComponent,
-        MovieDetailsCardComponent,
-        UserProfileComponent,
-        ToolbarComponent
-        
-        
-       
-    ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        MatDialogModule,
-        MatInputModule,
-        MatButtonModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatSnackBarModule,
-        RouterModule.forRoot(appRoutes),
-        MatIconModule,
-       
-        
-     
-    ],
-    
-    providers: [
-        provideHttpClient(withFetch())
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    bootstrap: [AppComponent]
-
+  declarations: [
+    AppComponent,
+    UserRegistrationFormComponent,
+    UserLoginFormComponent,
+    MovieCardComponent,
+    WelcomePageComponent,
+    DirectorInfoComponent,
+    GenreCardComponent,
+    MovieDetailsCardComponent,
+    UserProfileComponent,
+    ToolbarComponent,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatSnackBarModule,
+    RouterModule.forRoot(appRoutes),
+    MatIconModule,
+  ],
+  providers: [
+    provideHttpClient(withFetch()),
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
 })
-
-export class AppModule { } 
+export class AppModule {}

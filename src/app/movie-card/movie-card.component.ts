@@ -1,32 +1,32 @@
 // src/app/movie-card/movie-card.component.ts
 import { Component, OnInit } from '@angular/core';
-import { UserRegistrationService } from '../fetch-api-data.service'
+import { UserRegistrationService } from '../fetch-api-data.service';
 import { DirectorInfoComponent } from '../director-info/director-info.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GenreCardComponent } from '../genre-card/genre-card.component';
 import { MovieDetailsCardComponent } from '../movie-details-card/movie-details-card.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-
 @Component({
   selector: 'app-movie-card',
   templateUrl: './movie-card.component.html',
-  styleUrls: ['./movie-card.component.scss']
+  styleUrls: ['./movie-card.component.scss'],
 })
-export class MovieCardComponent implements OnInit{
+export class MovieCardComponent implements OnInit {
   movies: any[] = [];
   favoriteMovies: any[] = [];
-  constructor(public fetchApiData: UserRegistrationService,
+  constructor(
+    public fetchApiData: UserRegistrationService,
     private dialog: MatDialog,
-    public snackBar: MatSnackBar
-  ) { }
+    public snackBar: MatSnackBar,
+  ) {}
 
-ngOnInit(): void {
-  this.getMovies();
-}
+  ngOnInit(): void {
+    this.getMovies();
+  }
 
-getMovies(): void {
-  this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+  getMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
       console.log(this.movies);
       return this.movies;
@@ -36,7 +36,7 @@ getMovies(): void {
   openDirectorDialog(director: object): void {
     this.dialog.open(DirectorInfoComponent, {
       data: director,
-      width: '600px'
+      width: '600px',
     });
   }
 
@@ -46,14 +46,14 @@ getMovies(): void {
       data: description,
       width: '600px',
     });
-  } 
+  }
 
   openGenreDialog(genre: object): void {
     this.dialog.open(GenreCardComponent, {
       data: genre,
       width: '600px',
     });
-  } 
+  }
 
   getFavorites(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
@@ -65,26 +65,26 @@ getMovies(): void {
       }
     });
   }
-/**
-    * Checks if a movie is in the user's favorite list.
-    * @param movie - The movie to check.
-    * @returns True if the movie is in the favorite list, false otherwise.
-    */
+  /**
+   * Checks if a movie is in the user's favorite list.
+   * @param movie - The movie to check.
+   * @returns True if the movie is in the favorite list, false otherwise.
+   */
   isFav(movie: any): boolean {
     return this.favoriteMovies.includes(movie._id);
   }
- /**
-    * Toggles a movie in the user's favorite list.
-    * @param movie - The movie to toggle.
-    */
+  /**
+   * Toggles a movie in the user's favorite list.
+   * @param movie - The movie to toggle.
+   */
   /* toggleFav(movie: any): void {
     console.log('toggling favorite movie');
     const isFavorite = this.isFav(movie._id);
     console.log('isFavorite');
     isFavorite ? this.deleteFavMovies(movie._id) : this.addFavMovies(movie._id);
   } */
- 
-    /* * Adds a movie to the user's favorite list.
+
+  /* * Adds a movie to the user's favorite list.
      * @param movie - The movie to add to favorites.
      addFavMovies(movie: any): void {
     let user = localStorage.getItem('user');
@@ -106,23 +106,21 @@ getMovies(): void {
       });
     } 
   } */
-  
- 
+
   addFavMovies(MovieId: string): void {
     console.log(MovieId);
 
     this.fetchApiData.addFavoriteMovie(MovieId).subscribe((resp: any) => {
       localStorage.setItem('user', JSON.stringify(resp));
-console.log(resp);
-    })
-   
-}
+      console.log(resp);
+    });
+  }
 
-/**
-     * Deletes a movie from the user's favorite list.
-     * @param movie - The movie to remove from favorites.
-     */
-   /* deleteFavMovies(movie: any): void {
+  /**
+   * Deletes a movie from the user's favorite list.
+   * @param movie - The movie to remove from favorites.
+   */
+  /* deleteFavMovies(movie: any): void {
       let user = localStorage.getItem('user');
       if (user) {
         let parsedUser = JSON.parse(user);
@@ -137,6 +135,4 @@ console.log(resp);
         });
       }
     } */
-
-  }
-
+}

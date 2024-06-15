@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 
 import { UserRegistrationService } from '../fetch-api-data.service';
 import { formatDate } from '@angular/common';
@@ -10,29 +9,28 @@ import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrl: './user-profile.component.scss'
+  styleUrl: './user-profile.component.scss',
 })
 export class UserProfileComponent implements OnInit {
   userName = '';
   @Input() userData: any = {};
 
-  user: any= {};
+  user: any = {};
   movies: any[] = [];
   favoriteMovies: any[] = [];
-
 
   constructor(
     public fetchApiData: UserRegistrationService,
     public snackBar: MatSnackBar,
-    public router: Router
+    public router: Router,
   ) {}
 
   ngOnInit(): void {
     console.log(this.userData);
-    this.user = JSON.parse(localStorage.getItem('user') || "{}");
+    this.user = JSON.parse(localStorage.getItem('user') || '{}');
     this.getFavMovies();
     console.log(this.user);
-    console.log(this.favoriteMovies); 
+    console.log(this.favoriteMovies);
   }
 
   updateUser(): void {
@@ -48,11 +46,11 @@ export class UserProfileComponent implements OnInit {
         this.snackBar.open('Please try again', 'No success', {
           duration: 2000,
         });
-      }
+      },
     );
   }
 
-  // Fetch users favortie movies 
+  // Fetch users favortie movies
   /* getFavMovies(MovieId: any): void {
     this.fetchApiData.getFavorites(MovieId).subscribe((result: any) => {
      this.favoriteMovies = result.favoriteMovies;
@@ -62,29 +60,30 @@ export class UserProfileComponent implements OnInit {
     return this.favoriteMovies.includes(MovieId);
   } */
 
-    getFavMovies(): void {
-      this.fetchApiData.getAllMovies().subscribe((res: any) => {
+  getFavMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe(
+      (res: any) => {
         this.favoriteMovies = res.filter((movie: any) => {
-          return this.user.favoriteMovies.includes(movie._id)
-        })
-      }, (err: any) => {
+          return this.user.favoriteMovies.includes(movie._id);
+        });
+      },
+      (err: any) => {
         console.error(err);
-      });
-    }
-    
+      },
+    );
+  }
 
-
- /**
-     * Deletes the user's account.
-     */
+  /**
+   * Deletes the user's account.
+   */
   deleteUser(): void {
     this.fetchApiData.deleteUser().subscribe((resp: any) => {
-      this.user = JSON.parse(localStorage.getItem('user') || "");
-    })
+      this.user = JSON.parse(localStorage.getItem('user') || '');
+    });
   }
 
   // Delete movie from favorties
-   deleteFavMovie(MovieId: string): void {
+  deleteFavMovie(MovieId: string): void {
     console.log(MovieId);
 
     this.fetchApiData.deleteFavoriteMovie(MovieId).subscribe((resp: any) => {
@@ -92,12 +91,11 @@ export class UserProfileComponent implements OnInit {
       this.snackBar.open('Movie has been removed from favorites', 'OK', {
         duration: 3000,
       });
-console.log(resp);
-    })
-   
-}
+      console.log(resp);
+    });
+  }
 
-  // Add movie to favorites 
+  // Add movie to favorites
   /* addFaveMovie(movie: any): void {
     this.fetchApiData.addFavoriteMovie(movie.MovieId).subscribe((result) => {
       localStorage.setItem('user', JSON.stringify(result));
@@ -108,7 +106,7 @@ console.log(resp);
     });
   } */
 
-  // Delte movie from favorites 
+  // Delte movie from favorites
   /* deleteMovie(movie: any): void {
     this.fetchApiData.deleteFavoriteMovie(movie.MovieId).subscribe((result) => {
       localStorage.setItem('user', JSON.stringify(result));
@@ -120,7 +118,7 @@ console.log(resp);
     });
   } */
 
-  // Toggle user's favorite movies 
+  // Toggle user's favorite movies
   /* toggleFavMovies(movie: any): void {
     const isFavorite = this.isFav(movie);
     isFavorite
