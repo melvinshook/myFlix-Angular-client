@@ -22,7 +22,7 @@ export class UserProfileComponent implements OnInit {
   constructor(
     public fetchApiData: UserRegistrationService,
     public snackBar: MatSnackBar,
-    public router: Router,
+    public router: Router
   ) {}
 
   ngOnInit(): void {
@@ -48,12 +48,12 @@ export class UserProfileComponent implements OnInit {
         this.snackBar.open('Please try again', 'No success', {
           duration: 2000,
         });
-      },
+      }
     );
   }
 
   // Fetch users favortie movies
-  
+
   getFavMovies(): void {
     this.fetchApiData.getAllMovies().subscribe(
       (res: any) => {
@@ -63,7 +63,7 @@ export class UserProfileComponent implements OnInit {
       },
       (err: any) => {
         console.error(err);
-      },
+      }
     );
   }
 
@@ -71,14 +71,12 @@ export class UserProfileComponent implements OnInit {
    * Deletes the user's account.
    */
   deleteUser(): void {
-    this.userData = JSON.parse(localStorage.getItem("user") || "");
+    this.userData = JSON.parse(localStorage.getItem('user') || '');
     this.router.navigate(['/welcome']); // Navigate to welcome page after account deletion
     this.snackBar.open('User was successfully deleted', 'OK', {
-      duration: 3000, // Snackbar message durration 
+      duration: 3000, // Snackbar message durration
     });
   }
-
-    
 
   // Delete movie from favorties
   deleteFavMovie(MovieId: string): void {
@@ -93,7 +91,6 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  
   // Toggle user's favorite movies
   /* toggleFavMovies(movie: any): void {
     const isFavorite = this.isFav(movie);

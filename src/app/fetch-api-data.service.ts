@@ -114,7 +114,7 @@ export class UserRegistrationService {
       catchError((error) => {
         console.error('API Error:', error);
         return this.handleError(error);
-      }),
+      })
     );
   }
 
@@ -131,7 +131,7 @@ export class UserRegistrationService {
       .pipe(map(this.extractResponseData), catchError(this.handleError));
   }
   // making call to api to update user info by username
-public editUser(userDetails: any): Observable<any> {
+  public editUser(userDetails: any): Observable<any> {
     // const user = JSON.parse(localStorage.getItem('user') || '{}');
     // const token = localStorage.getItem('token');
     const user = this.getUser();
@@ -159,17 +159,18 @@ public editUser(userDetails: any): Observable<any> {
       })
       .pipe(map(this.extractResponseData), catchError(this.handleError));
   } */
-      public deleteUser(userName: string): Observable<any> {
-        const token = localStorage.getItem('token');
-        const body = JSON.stringify({"userName": userName});
-        return this.http.delete(apiUrl + `/users`,
-        {headers: new HttpHeaders({
-            Authorization: 'Bearer ' + token,
-        }), body: body
-        }).pipe(
-            map(this.extractResponseData), catchError(this.handleError)
-        );
-    }
+  public deleteUser(userName: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const body = JSON.stringify({ userName: userName });
+    return this.http
+      .delete(apiUrl + `/users`, {
+        headers: new HttpHeaders({
+          Authorization: 'Bearer ' + token,
+        }),
+        body: body,
+      })
+      .pipe(map(this.extractResponseData), catchError(this.handleError));
+  }
 
   //making call to api to add favorite movie to users list
   public addFavoriteMovie(MovieId: string): Observable<any> {
@@ -188,7 +189,7 @@ public editUser(userDetails: any): Observable<any> {
             'Content-Type': 'application/json',
             Authorization: 'Bearer ' + token,
           }),
-        },
+        }
       )
       .pipe(catchError(this.handleError));
   }
@@ -199,8 +200,6 @@ public editUser(userDetails: any): Observable<any> {
     // const user = JSON.parse(localStorage.getItem('user') || '{}');
     const user = this.getUser();
     const token = this.getToken();
-
-    
 
     return this.http
       .delete(apiUrl + `users/${user.userName}/movies/${MovieId}`, {
@@ -213,9 +212,9 @@ public editUser(userDetails: any): Observable<any> {
 
   private handleError(error: HttpErrorResponse): any {
     console.log(error);
-    
+
     return throwError(
-      () => new Error('Something went wrong, please try again later.'),
+      () => new Error('Something went wrong, please try again later.')
     );
   }
 }
