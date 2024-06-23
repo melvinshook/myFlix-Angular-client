@@ -32,7 +32,9 @@ export class UserProfileComponent implements OnInit {
     console.log(this.user);
     console.log(this.favoriteMovies);
   }
-
+  /**
+   * update user profile
+   */
   updateUser(): void {
     this.fetchApiData.editUser(this.userData).subscribe(
       (resp: any) => {
@@ -52,7 +54,9 @@ export class UserProfileComponent implements OnInit {
     );
   }
 
-  // Fetch users favortie movies
+  /**
+   * fetch users favorite movie
+   */
 
   getFavMovies(): void {
     this.fetchApiData.getAllMovies().subscribe(
@@ -78,7 +82,10 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  // Delete movie from favorties
+  /**
+   * delete a user's favorite movies
+   * @param MovieId
+   */
   deleteFavMovie(MovieId: string): void {
     console.log(MovieId);
 
@@ -90,12 +97,4 @@ export class UserProfileComponent implements OnInit {
       console.log(resp);
     });
   }
-
-  // Toggle user's favorite movies
-  /* toggleFavMovies(movie: any): void {
-    const isFavorite = this.isFav(movie);
-    isFavorite
-    ? this.deleteMovie(movie)
-    : this.addFaveMovie(movie);
-  } */
 }
